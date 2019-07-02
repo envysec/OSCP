@@ -5,7 +5,7 @@
 #Check for number of arguments
 if [ $# -lt 3 ]; then
 	echo "[*] Syntax: ./portKnock.sh [ip] {[port 1] [port 2] .. [port3]}"
-	exit 0
+	exit 1
 fi
 
 #Save target ip and shift arguments
