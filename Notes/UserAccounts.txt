@@ -1,0 +1,15 @@
+-------
+|Linux|
+-------
+#Create user account
+
+#Adjust password
+
+---------
+|Windows|
+---------
+#Create user account
+net user /add [username] [password]
+
+#Add user to admin group
+net localgroup administrators [username] /add

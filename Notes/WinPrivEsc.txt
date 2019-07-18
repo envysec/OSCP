@@ -1,0 +1,6 @@
+
+-----------------
+|Kernel Exploits|
+-----------------
+#Find OS name and version
+systeminfo | findstr /B /C:"OS NAME" /C:"OS Version"
