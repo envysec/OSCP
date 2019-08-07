@@ -25,6 +25,18 @@ if [ ! -d ~/Documents/OSCP/PWK ]; then
 	mkdir -p ~/Documents/OSCP/PWK
 fi
 
+################
+#Create Aliases#
+################
+
+echo "[*] Writing in .bash_aliases..."
+echo "alias gotoHTB='cd ~/Documents/HTB'" >> ~/.bash_aliases
+echo "alias gotoOSCP='cd ~/Documents/OSCP'" >> ~/.bash_aliases
+echo "alias gotoVPN='cd ~/Documents/VPNs'" >> ~/.bash_aliases
+echo "alias multiply='gnome-terminal;gnome-terminal;gnome-terminal'" >> ~/.bash_aliases
+echo "alias pbcopy='xclip -selection clipboard'" >> ~/.bash_aliases
+echo "alias pbpaste='xclip -selection clipboard -o'" >> ~/.bash_aliases
+
 ##########################
 #Download Tools Into /opt#
 ##########################
@@ -51,3 +63,6 @@ git clone https://github.com/trustedsec/unicorn.git && echo "[*] Unicorn downloa
 
 #Download Gobuster
 git clone https://github.com/OJ/gobuster.git && echo "[*] Gobuster downloaded"
+
+#Download PowerSploit
+git clone https://github.com/PowerShellMafia/PowerSploit.git && echo "[*] PowerSploit downloaded"
