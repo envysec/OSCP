@@ -66,3 +66,9 @@ git clone https://github.com/OJ/gobuster.git && echo "[*] Gobuster downloaded"
 
 #Download PowerSploit
 git clone https://github.com/PowerShellMafia/PowerSploit.git && echo "[*] PowerSploit downloaded"
+
+#Download Windows Exploits
+git clone https://github.com/abatchy17/WindowsExploits.git && echo "Windows Exploits downloaded"
+
+#Download Sherlock
+git clone https://github.com/rasta-mouse/Sherlock.git && echo "Sherlock downloaded"
