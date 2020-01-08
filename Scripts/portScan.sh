@@ -27,4 +27,4 @@ ports="$(grep -oP '\d{1,5}/open' nmap/fullScan.gnmap | sort -u | cut -d '/' -f 1
 
 #Safe scripts and service scan
 echo "[*] Performing service scan..."
-nmap -sV --script safe -p $ports $1 -oA nmap/serviceScan
+nmap -A --script safe -p $ports $1 -oA nmap/serviceScan
