@@ -8,7 +8,7 @@
 checkDir() {
 	if [ ! -d ~/Documents/$1 ]; then
 		echo "[*] Creating $1 directory..."
-		mkdir ~/Documents/$1
+		mkdir -p ~/Documents/$1
 	else
 		echo "[*] ~/Documents/$1 directory already exists"
 	fi
@@ -20,6 +20,7 @@ checkDir() {
 
 checkDir VPNs
 checkDir VPNs/ELS
+checkDir VHL
 checkDir HTB
 checkDir OSCP/lab
 checkDir OSCP/PWK
@@ -33,6 +34,7 @@ echo "[*] Writing in .bash_aliases..."
 echo "alias gotoHTB='cd ~/Documents/HTB'" >> ~/.bash_aliases
 echo "alias gotoOSCP='cd ~/Documents/OSCP'" >> ~/.bash_aliases
 echo "alias gotoVPN='cd ~/Documents/VPNs'" >> ~/.bash_aliases
+echo "alias gotoVHL='cd ~/Documents/VHL'" >> ~/.bash_aliases
 echo "alias gotoELS='cd ~/Documents/ELS'" >> ~/.bash_aliases
 echo "alias multiply='gnome-terminal;gnome-terminal;gnome-terminal'" >> ~/.bash_aliases
 echo "alias pbcopy='xclip -selection clipboard'" >> ~/.bash_aliases
@@ -60,6 +62,9 @@ git clone https://github.com/rebootuser/LinEnum.git && echo "[*] LinEnum downloa
 #Download LinuxPrivChecker
 git clone https://github.com/sleventyeleven/linuxprivchecker.git && echo "[*] LinuxPrivChecker downloaded"
 
+#Download WindowsExploitSuggester
+git clone https://github.com/AonCyberLabs/Windows-Exploit-Suggester.git && echo "[*] WindowsExploitSuggester downloaded"
+
 #Download Unicorn
 git clone https://github.com/trustedsec/unicorn.git && echo "[*] Unicorn downloaded"
 
@@ -70,10 +75,13 @@ git clone https://github.com/OJ/gobuster.git && echo "[*] Gobuster downloaded"
 git clone https://github.com/PowerShellMafia/PowerSploit.git && echo "[*] PowerSploit downloaded"
 
 #Download Windows Exploits
-git clone https://github.com/abatchy17/WindowsExploits.git && echo "Windows Exploits downloaded"
+git clone https://github.com/abatchy17/WindowsExploits.git && echo "[*] Windows Exploits downloaded"
 
 #Download Sherlock
-git clone https://github.com/rasta-mouse/Sherlock.git && echo "Sherlock downloaded"
+git clone https://github.com/rasta-mouse/Sherlock.git && echo "[*] Sherlock downloaded"
+
+#Download MS17-010
+git clone https://github.com/helviojunior/MS17-010.git && echo "[*] MS17-010 downloaded"
 
 #############
 #Path Change#
