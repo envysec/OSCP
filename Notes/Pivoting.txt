@@ -1,0 +1,37 @@
+---------
+|Mapping|
+---------
+#Check interfaces
+ifconfig
+ipconfig
+
+#Check routes
+route print
+arp
+
+#Check for listening ports
+netstat -antp
+
+#Meterpreter - Check network
+run arp_scanner -r [IP range]
+run netenum
+
+-------
+|Pivot|
+-------
+#Add static route - metasploit
+route add [ip] [subnet] [session]
+
+#Add static route - meterpreter
+run autoroute -s [ip block]
+
+#Set up proxychains
+use auxiliary/server/socks4a
+##Add corresponding "socks4 127.0.0.1 1080" at bottom of /etc/proxychain.conf
+
+#Scan using proxychains
+proxychains nmap -sT -Pn -n [ip block]
+
+#Set up portforwarding
+portfwd add -l [local port] -p [remote port] -r [remote IP]
+

@@ -1,0 +1,54 @@
+-------
+|Linux|
+-------
+#List users
+cat /etc/passwd
+
+#DNS Information
+cat /etc/resolv.conf
+
+#ARP Table
+arp -en
+
+#Check listening ports
+netstat -auntp
+
+#Kernel Information
+uname -arp
+
+#Check history files
+cat /root/.bash_history
+find /home/* -name *.*history* -print 2> /dev/null
+
+#List cronjobs
+cat /etc/crontab && ls -als /etc/cron*
+
+#Search for world-writable cronjobs
+find /etc/cron* -type f -perm -o+w -exec ls -l {} \;
+
+#List root processes
+ps -u root
+
+#Find SUID/GUID
+find / -perm -4000 -type f 2>/dev/null
+find / -perm -2000 -type f 2>/dev/null
+
+#List all conf files
+ls -al /etc/*.conf
+
+#List installed packages
+dpkg -l
+
+
+---------
+|Windows|
+---------
+#Find running services
+wmic service get Caption,StartName,State,pathname
+
+#List Domain Controllers
+net group "Domain Controllers" /domain
+
+#List users
+net user
+

@@ -1,16 +1,32 @@
+General Gathering
+=================
+#Pull info from website
+theharvester -d [domain] -b [google|linkedin|yahoo]
+
+#Host Discovery
+nmap -sn [ip block]
+
+
 Port 21
 =======
+
 
 Port 22
 =======
 
+
 Port 25
 =======
+#Command enumeration
+nmap --script=smtp-commands [IP] -p 25
 
 Port 53
 =======
 #AXFR
 dig axfr @[dns ip] [domain]
+
+#AXFR
+
 
 Port 80
 =======
@@ -50,7 +66,7 @@ mkdir -p /mnt/home/name
 mount -t nfs [nfs ip]:/home/name /mnt/home/name -o nolock
 
 #NSE scripts for portmapper (rpcbind)
-nmap --script rpc-grind, rpcinfo [ip] -p [port]
+nmap --script rpc-grind,rpcinfo [ip] -p [port]
 
 #Connect to RPC
 rpcinfo -p [ip]
@@ -60,16 +76,25 @@ Port 139/445 (SMB)
 #NSE Scripts
 nmap --script smb-enum-shares [ip]
 
-
 #Enumerate smb port
 Enum4Linux -a
+nbtstat -A [IP]
 
 #List shares
-smbclient -L //[host]
+smbclient -L [host]
+smbmap -H [ip]
 
 #connect to share
 smbclient \\\\[host]\\[share]
 smbclient //[host]/[share]
+
+#Linux manual mount
+mount.cifs //192.168.1.50/share /media/rShare/ user=,pass=
+
+#Windows manual mount
+net use Z: \\192.168.1.50\share
+
+#
 
 Port 161-163
 ============
