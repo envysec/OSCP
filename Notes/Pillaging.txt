@@ -1,3 +1,9 @@
+---------
+|General|
+---------
+#Crack zip file
+fcrackzip -v -D -u -p [wordlist] [zipfile]
+
 -------
 |Linux|
 -------
@@ -39,6 +45,9 @@ ls -al /etc/*.conf
 #List installed packages
 dpkg -l
 
+#Search for ssh keys
+/etc/ssh/sshd_config |grep Pub
+/root/.ssh/id_rsa
 
 ---------
 |Windows|

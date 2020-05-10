@@ -3,9 +3,20 @@ General Gathering
 #Pull info from website
 theharvester -d [domain] -b [google|linkedin|yahoo]
 
-#Host Discovery
-nmap -sn [ip block]
+#Host Discovery (ping no portscan)
+nmap -sn [ip range]
 
+#Host Discovery (no ping, SYN scan, no dns resolution)
+nmap -n -sn -PS [Ports] [ip range]
+
+#OS Discovery
+nmap -O -v -n [ip range] --osscan-guess
+
+#Netdiscover
+netdiscover -i [interface] -r [ip range]
+
+#Check for nse vulns
+nmap --script +vuln -p [ports] [ip range]
 
 Port 21
 =======
@@ -23,10 +34,13 @@ nmap --script=smtp-commands [IP] -p 25
 Port 53
 =======
 #AXFR
-dig axfr @[dns ip] [domain]
+dig @[dns ip] [domain] -t AXFR +nocookie
 
 #AXFR
+host -t axfr [domain] [dns server]
 
+#DNS scan using DNS source port
+nmap -sS --source-port 53 -p 53 [ip range]
 
 Port 80
 =======
@@ -77,8 +91,19 @@ Port 139/445 (SMB)
 nmap --script smb-enum-shares [ip]
 
 #Enumerate smb port
-Enum4Linux -a
+##Windows
 nbtstat -A [IP]
+##Linux
+nmblookup -A [IP]
+enum4linux -A [IP]
+
+#Check null sessions
+##Windows
+net use \\[ip]\[share] "" /u:""
+net view \\[ip]
+##Linux
+smbclient -N \\\\[IP]\\[share] -U ""
+enum4linux -N [ip]
 
 #List shares
 smbclient -L [host]
@@ -94,10 +119,21 @@ mount.cifs //192.168.1.50/share /media/rShare/ user=,pass=
 #Windows manual mount
 net use Z: \\192.168.1.50\share
 
-#
+#List users
+enum4linux -r [ip] | grep "Local User"
 
 Port 161-163
 ============
+#Brute-force community name
+onesixtyone -c [wordlist] [ip]
+
+#Enumerate community string
+snmpwalk -v [version] -c [community] [ip]
+
+#Full enum of snmp
+##http://dl.packetstormsecurity.net/UNIX/scanners/snmpenum.zip
+perl snmpenum.pl [ip] [community] [database]
+
 
 Port 3389
 =========

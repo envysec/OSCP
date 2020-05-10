@@ -1,3 +1,9 @@
+---------
+|General|
+---------
+#Check privileges on directory/file
+icacls [path]
+
 ------------
 |Metasploit|
 ------------
@@ -21,7 +27,6 @@ wmic service get name,displayname,pathname,startmode |findstr /i "auto" |findstr
 
 #Query service
 sc qc [Service Name]
-
 
 -----------------
 |Kernel Exploits|

