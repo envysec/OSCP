@@ -14,7 +14,7 @@ if [ -z $2 ]; then
     ip="10.100.13.37"
 fi
 
-if ["$1" = "gen" ]; then
+if [ "$1" = "gen" ]; then
     echo "[+] Creating backup ..."
     
     cat /etc/resolv.conf > /etc/resolv.conf.bak
@@ -30,7 +30,7 @@ if ["$1" = "gen" ]; then
     
     echo "[+] Finished writing to /etc/resolv.conf"
     
-elif ["$1" = "rest" ]; then
+elif [ "$1" = "rest" ]; then
     echo "[+] Restoring backup..."
     
     mv /etc/resolv.conf.bak /etc/resolv.conf
